@@ -1,0 +1,160 @@
+:root {
+  --bg-main: #0b0f14;
+  --bg-panel: #111827;
+  --border: #1f2937;
+  --text-main: #e6edf3;
+  --accent: #3b82f6;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- DASHBOARD ---------- */
+
+.dashboard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard.dark {
+  background: var(--bg-main);
+}
+
+.dashboard-body {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  height: calc(100vh - 260px);
+}
+
+/* ---------- KPI BAR ---------- */
+
+.kpi-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.kpi {
+  background: var(--bg-panel);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.kpi span {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f9fafb;
+  display: block;
+  margin-top: 6px;
+}
+
+/* ---------- CHARTS ---------- */
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.chart-card {
+  background: var(--bg-panel);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+/* ---------- SESSION LIST ---------- */
+
+.session-list {
+  background: var(--bg-panel);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+.session-item {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.session-item:hover {
+  background: #1f2937;
+}
+
+.session-item.active {
+  background: #1e3a8a;
+}
+
+/* ---------- SESSION VIEWER ---------- */
+
+.session-viewer {
+  background: var(--bg-panel);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* ---------- MODAL / LIVEKIT ---------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 1100px;
+  height: 80vh;
+  background: var(--bg-panel);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.split-layout {
+  display: flex;
+  height: 100%;
+}
+
+.left-panel {
+  flex: 3;
+  padding-right: 1rem;
+  border-right: 1px solid var(--border);
+}
+
+.right-panel {
+  flex: 1;
+  padding-left: 1rem;
+  background: var(--bg-panel);
+}
+
+.tool-panel {
+  height: 100%;
+  overflow-y: auto;
+}

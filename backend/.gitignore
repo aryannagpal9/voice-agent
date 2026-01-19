@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+.env
+.env.*
+.venv/
+venv/
+ENV/
+pip-wheel-metadata/
+
+# Logs
+*.log
+logs/
+*.sqlite3
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+.vite/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Test / Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Docker
+*.tar
+
+# Secrets
+*.key
+*.pem
+*.crt
