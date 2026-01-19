@@ -1,9 +1,8 @@
 livekit-agents
-livekit-plugins-openai
-livekit-plugins-silero
+"livekit-agents[openai,silero,deepgram,cartesia,turn-detector,bey]~=1.0"
 python-dotenv
 livekit-api
-flask[async]
-flask
-flask-cors
 uvicorn
+fastapi
+pydantic
+requests
