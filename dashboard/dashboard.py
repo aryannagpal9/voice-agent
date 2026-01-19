@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from supabase_client import supabase
+from agent.supabase_client import supabase
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

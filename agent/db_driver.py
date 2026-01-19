@@ -1,4 +1,4 @@
-from supabase_client import supabase
+from agent.supabase_client import supabase
 
 class AppointmentDB:
     def create_appointment(self, data: dict):
