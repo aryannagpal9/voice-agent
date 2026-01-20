@@ -3,3 +3,4 @@ uvicorn
 fastapi
 livekit-api
 livekit
+supabase
