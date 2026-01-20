@@ -8,7 +8,7 @@ const LiveKitModal = ({ setShowSupport }) => {
 
   const getToken = useCallback(async () => {
     try {
-      const response = await fetch("/api/getToken");
+      const response = await fetch("https://voice-agent-aryan-oof2.vercel.app/getToken");
       const data = await response.json();
       setToken(data.token);
     } catch (error) {

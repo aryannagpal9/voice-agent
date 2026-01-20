@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voice-agent"
+version = "0.1.0"
+description = "Voice agent backend"
+authors = [
+    { name = "Aryan Nagpal" }
+]
+dependencies = [
+   
+]

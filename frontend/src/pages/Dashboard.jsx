@@ -4,7 +4,7 @@ import SessionViewer from "../components/SessionViewer"
 import KPIBar from "../components/KPIBar"
 import MetricsCharts from "../components/MetricsCharts"
 
-const API = "http://localhost:8001"
+const API = "https://dashboard-kappa-steel-96.vercel.app"
 
 const safeParse = (value, fallback) => {
   if (!value) return fallback
