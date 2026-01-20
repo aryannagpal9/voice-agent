@@ -3,7 +3,7 @@ services:
   repo: https://github.com/livekit-examples/agent-deployment
 
   # Change this to the path containing your Dockerfile
-  rootDir: /
+  rootDir: /agent
 
   name: agent-example
   runtime: image
