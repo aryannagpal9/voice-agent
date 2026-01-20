@@ -1,5 +1,10 @@
 livekit-agents
-"livekit-agents[openai,silero,deepgram,cartesia,turn-detector,bey]~=1.0"
+livekit-plugins-bey
+livekit-plugins-openai
+livekit-plugins-silero
+livekit-plugins-deepgram
+livekit-plugins-cartesia
+livekit-plugins-turn-detector
 python-dotenv
 livekit-api
 uvicorn

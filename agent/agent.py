@@ -17,11 +17,36 @@ import time
 import api
 from prompts import build_system_prompt
 from supabase_client import supabase
-from summary import generate_session_summary
 from livekit.agents import AgentSession, Agent, RoomInputOptions
 import asyncio
+import json
+import os
+import requests
+from dotenv import load_dotenv
+
 load_dotenv()
 server = AgentServer()
+
+API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+def call_llm(messages):
+    response = requests.post(
+        "https://openrouter.ai/api/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json"
+        },
+        json={
+            "model": "mistralai/mistral-7b-instruct",
+            "messages": messages,
+            "temperature": 0
+        }
+    )
+
+    data = response.json()
+    print("LLM RAW:", data)
+
+    return data["choices"][0]["message"]["content"]
 
 # ------------------ GLOBAL TRACKERS ------------------
 
@@ -41,6 +66,37 @@ async def record_tool(name, payload):
         "data": payload
     })
 
+
+def generate_session_summary(transcript, tools):
+    messages = [
+        {
+            "role": "system",
+            "content": "You are an AI quality evaluator for voice agents. Do not store personal important information like phone number."
+        },
+        {
+            "role": "user",
+            "content": f"""
+                    Conversation:
+                    {json.dumps(transcript, indent=2)}
+
+                    Tool Calls:
+                    {json.dumps(tools, indent=2)}
+
+                    Return ONLY valid JSON in this format:
+
+                    {{
+                    "summary": "1-2 sentence plain English summary about the conversation.",
+                    "success": true or false,
+                    "reason": "Why it failed or NA",
+                    "user_outcome": "Booked/Cancelled/Retrieved/Modified",
+                    "agent_performance": "Good / Average / Poor",
+                    "user_frustration": "Low / Medium / High"
+                    }}
+                    """
+        }
+    ]
+
+    return call_llm(messages)
 # ------------------ FUNCTION TOOLS ------------------
 
 @function_tool
@@ -224,7 +280,7 @@ async def entrypoint(ctx: JobContext):
     avatar = bey.AvatarSession(
         avatar_id=os.getenv("BEY_AVATAR_ID")
     )
-    await avatar.start(session, room=ctx.room)
+    await avatar.start(session, room=ctx.room, livekit_url="wss://voice-agent-9oszevc3.livekit.cloud", livekit_api_key=os.getenv("LIVEKIT_API_KEY"), livekit_api_secret=os.getenv("LIVEKIT_API_SECRET"))
 
     # --- STT LATENCY TRACKING ---
     stt_start_time = {}
