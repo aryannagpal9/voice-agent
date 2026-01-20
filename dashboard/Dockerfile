@@ -2,11 +2,11 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY backend/ backend/
+COPY dashboard/ dashboard/
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-WORKDIR /app/backend
+WORKDIR /app/dashboard
 
 CMD ["uvicorn", "dashboard:app", "--host", "0.0.0.0", "--port", "8001"]
