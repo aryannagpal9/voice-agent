@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from ..agent.supabase_client import supabase
+from supabase_client import supabase
 from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
