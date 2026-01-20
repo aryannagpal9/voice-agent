@@ -210,7 +210,53 @@ FastAPI servers and frontend deployed using vercel
 Agent Deployed using Livekit Cloud
 
 ------------------------------------------------------
+## **8. Edge cases to test**
+Voice & STT Edge Cases
 
+    User interrupts the agent mid-sentence
+    Validated turn-detector + barge-in handling so the agent stops talking and re-prioritizes user intent instead of rambling like a bad IVR.
+    
+    Partial or noisy speech input
+    Tested STT behavior when the user trails off (“uh… book… tomorrow…”) or speaks in a noisy environment. Agent confirms intent instead of hallucinating bookings.
+    
+    Rapid back-to-back utterances
+    User speaks twice before LLM response returns. Ensured messages are queued correctly and not merged or dropped.
+
+LLM & Reasoning Failures
+
+    Ambiguous date/time inputs
+    “Book it next Friday evening” → agent requests clarification instead of guessing and causing calendar damage.
+    
+    Intent switching mid-conversation
+    User starts booking, then says “actually cancel my last appointment.” Agent correctly abandons the booking flow and switches tools.
+    
+    LLM tool-call failure or timeout
+    Simulated OpenRouter latency / failure → agent falls back to a graceful apology + retry instead of hard-crashing the session.
+
+Appointment Logic Edge Cases
+
+    Double-booking race condition
+    Two users attempting to book the same slot simultaneously → Supabase constraint + retry logic prevents duplicate bookings.
+    
+    Modify after cancel
+    User tries to modify an appointment that was already canceled → agent detects stale state and explains cleanly.
+    
+    Invalid slot selection
+    User selects a slot that existed earlier in the convo but is no longer available → agent re-fetches slots before booking.
+
+Session & Observability Edge Cases
+    
+    Session drops mid-call
+    Browser refresh or network loss → session marked as incomplete, transcript saved up to last utterance, no orphaned state.
+    
+    Agent crash during active room
+    Dashboard still shows partial metrics (duration, last event, error type) instead of losing observability entirely.
+    
+    High-latency STT/LLM path
+    Artificially delayed responses to validate end-to-end latency metrics and identify bottlenecks in the dashboard.
+
+
+------------------------------------------------------
 ## **9. Future Improvements**
 - **Multi-language support** (STT & LLM).
 - **Advanced analytics** (sentiment analysis, agent performance trends).
