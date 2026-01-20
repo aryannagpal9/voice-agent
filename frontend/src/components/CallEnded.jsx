@@ -13,7 +13,7 @@ const CallEnded = () => {
 
     const fetchSummary = async () => {
       try {
-        const res = await fetch(`http://127.0.0.1:8001/sessions/${sessionId}`);
+        const res = await fetch(`https://dashboard-kappa-steel-96.vercel.app/sessions/${sessionId}`);
         const data = await res.json();
 
         if (!data?.summary) {
